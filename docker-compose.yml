@@ -3,7 +3,7 @@ version: '3'
 services:
   mysql:
     image: mysql:latest
-    container_name: mysql
+    container_name: hexagonal_mysql
     ports:
       - "3306:3306"
     env_file:
@@ -20,26 +20,26 @@ services:
       - alchive-db:/alchive-db/mysql
     restart: always
     networks:
-      - alchive
+      - alchive_hexagonal
 
-  springboot:
-    container_name: springboot
-    restart: always
-    depends_on:
-      - mysql
-    ports:
-      - "8080:8080"
-    environment:
-      SPRING_DATASOURCE_URL: ${SPRING_DATASOURCE_URL}
-      SPRING_DATASOURCE_USERNAME: ${SPRING_DATASOURCE_USERNAME}
-      SPRING_DATASOURCE_PASSWORD: ${SPRING_DATASOURCE_PASSWORD}
-      SPRING_PROFILES_ACTIVE: ${SPRING_PROFILES_ACTIVE}
-    networks:
-      - alchive
+#  springboot:
+#    container_name: hexagonal_springboot
+#    restart: always
+#    depends_on:
+#      - hexagonal_mysql
+#    ports:
+#      - "8080:8080"
+#    environment:
+#      SPRING_DATASOURCE_URL: ${SPRING_DATASOURCE_URL}
+#      SPRING_DATASOURCE_USERNAME: ${SPRING_DATASOURCE_USERNAME}
+#      SPRING_DATASOURCE_PASSWORD: ${SPRING_DATASOURCE_PASSWORD}
+#      SPRING_PROFILES_ACTIVE: ${SPRING_PROFILES_ACTIVE}
+#    networks:
+#      - alchive_hexagonal
 
 #  # Monitoring
 #  prometheus:
-#    container_name: prometheus
+#    container_name: hexagonal_prometheus
 #    image: prom/prometheus:latest
 #    volumes:
 #      - ./monitoring/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
@@ -48,10 +48,10 @@ services:
 #    ports:
 #      - "9090:9090"
 #    networks:
-#      - alchive
+#      - alchive_hexagonal
 #
 #  grafana:
-#    container_name: grafana
+#    container_name: hexagonal_grafana
 #    image: grafana/grafana:latest
 #    volumes:
 #      - ./monitoring/grafana/provisioning/datasources:/etc/grafana/provisioning/datasources
@@ -62,10 +62,10 @@ services:
 #    depends_on:
 #      - prometheus
 #    networks:
-#      - alchive
+#      - alchive_hexagonal
 #
 #  cadvisor:
-#    container_name: cadvisor
+#    container_name: hexagonal_cadvisor
 #    image: gcr.io/cadvisor/cadvisor:latest
 #    ports:
 #      - "8081:8081"
@@ -77,10 +77,10 @@ services:
 #      - /var/run/docker.sock:/var/run/docker.sock
 #    privileged: true
 #    networks:
-#      - alchive
+#      - alchive_hexagonal
 
 networks:
-  alchive:
+  alchive_hexagonal:
     driver: bridge
 
 volumes:
