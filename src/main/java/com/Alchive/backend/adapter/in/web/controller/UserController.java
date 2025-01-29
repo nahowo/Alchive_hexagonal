@@ -6,6 +6,7 @@ import com.Alchive.backend.application.command.SignUpCommand;
 import com.Alchive.backend.application.port.in.UserUseCase;
 import com.Alchive.backend.config.result.ResultCode;
 import com.Alchive.backend.config.result.ResultResponse;
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -21,6 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class UserController {
     private final UserUseCase userUseCase;
 
+    @Operation(summary = "회원가입", description = "회원가입 메서드입니다. ")
     @PostMapping("/signup")
     public ResponseEntity<ResultResponse> signUp(@RequestBody UserCreateRequestDTO userCreateRequestDTO) {
         SignUpCommand signUpCommand = SignUpCommand.of(userCreateRequestDTO);

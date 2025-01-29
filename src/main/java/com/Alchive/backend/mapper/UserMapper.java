@@ -15,4 +15,6 @@ public interface UserMapper {
     UserEntity toEntity(User user);
     // command -> domain
     User commandToDomain(SignUpCommand signUpCommand);
+    // entity -> domain
+    User toDomain(UserEntity userEntity);
 }
