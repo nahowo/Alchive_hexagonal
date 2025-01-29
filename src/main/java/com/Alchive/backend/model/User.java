@@ -1,5 +1,8 @@
 package com.Alchive.backend.model;
 
+import com.Alchive.backend.adapter.in.web.dto.request.UserCreateRequestDTO;
+import com.Alchive.backend.config.error.exception.user.UserEmailExistException;
+import com.Alchive.backend.config.error.exception.user.UserNameExistException;
 import lombok.*;
 
 @Builder
@@ -13,8 +16,24 @@ public class User extends BaseModel {
     private String description;
     private Boolean autoSave;
 
-    public void createUser() {
 
+    public void createUser(String email, String name) {
+        if (!isUserEmailUnique(email)) {
+            throw new UserEmailExistException();
+        }
+        if (!isUserNameUnique(name)) {
+            throw new UserNameExistException();
+        }
+        this.email = email;
+        this.name = name;
+    }
+
+    public boolean isUserEmailUnique(String email) {
+        return true;
+    }
+
+    public boolean isUserNameUnique(String name) {
+        return true;
     }
 
     public void getUserDetail() {

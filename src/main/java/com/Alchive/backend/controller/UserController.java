@@ -20,7 +20,7 @@ import static com.Alchive.backend.config.result.ResultCode.*;
 @Tag(name = "사용자", description = "사용자 관련 api입니다.")
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/api/v2/users") // 공통 url
+@RequestMapping("/api/v2/users/layered") // 공통 url
 public class UserController {
     private final UserService userService;
 
