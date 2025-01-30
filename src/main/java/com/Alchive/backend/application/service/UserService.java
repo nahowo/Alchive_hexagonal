@@ -4,6 +4,7 @@ import com.Alchive.backend.adapter.in.web.dto.response.UserResponseDTO;
 import com.Alchive.backend.application.command.SignUpCommand;
 import com.Alchive.backend.application.port.in.UserUseCase;
 import com.Alchive.backend.application.port.out.user.CreateUserPort;
+import com.Alchive.backend.application.port.out.user.ExistUserPort;
 import com.Alchive.backend.application.port.out.user.FindUserPort;
 import com.Alchive.backend.mapper.UserMapper;
 import com.Alchive.backend.model.User;
@@ -20,6 +21,7 @@ public class UserService implements UserUseCase {
     private final UserMapper userMapper;
     private final CreateUserPort createUserPort;
     private final FindUserPort findUserPort;
+    private final ExistUserPort existUserPort;
     @Transactional
     @Override
     public UserResponseDTO signUp(SignUpCommand signUpCommand) {
@@ -27,7 +29,10 @@ public class UserService implements UserUseCase {
         User user = userMapper.commandToDomain(signUpCommand);
         log.info("도메인 생성 완료");
         // 비즈니스 로직 호출
-        user.createUser(user.getEmail(), user.getName());
+        Boolean isEmailExist = existUserPort.ExistByUserEmail(user.getEmail());
+        Boolean isNameExist = existUserPort.ExistByUserName(user.getName());
+
+        user.createUser(user.getEmail(), user.getName(), isEmailExist, isNameExist);
         log.info("비즈니스 로직 호출 완료");
         // 회원정보 저장
         User savedUser = createUserPort.createUser(user);

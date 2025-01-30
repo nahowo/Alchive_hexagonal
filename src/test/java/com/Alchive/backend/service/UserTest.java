@@ -11,7 +11,7 @@ public class UserTest {
     public void userCreateTest() {
         User sut = new User();
 
-        sut.createUser("test@gmail.com", "test");
+        sut.createUser("test@gmail.com", "test", false, false);
 
         Assertions.assertEquals("test@gmail.com", sut.getEmail());
         Assertions.assertEquals("test", sut.getName());

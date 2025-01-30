@@ -3,6 +3,7 @@ package com.Alchive.backend.adapter.out.persistence.adapter;
 import com.Alchive.backend.adapter.out.persistence.entity.UserEntity;
 import com.Alchive.backend.adapter.out.persistence.repository.UserRepository;
 import com.Alchive.backend.application.port.out.user.CreateUserPort;
+import com.Alchive.backend.application.port.out.user.ExistUserPort;
 import com.Alchive.backend.application.port.out.user.FindUserPort;
 import com.Alchive.backend.config.error.exception.user.NoSuchUserIdException;
 import com.Alchive.backend.mapper.UserMapper;
@@ -12,7 +13,7 @@ import org.springframework.stereotype.Component;
 
 @RequiredArgsConstructor
 @Component
-public class UserPersistenceAdapter implements CreateUserPort, FindUserPort {
+public class UserPersistenceAdapter implements CreateUserPort, FindUserPort, ExistUserPort {
     private final UserRepository userRepository;
     private final UserMapper userMapper;
 
@@ -29,5 +30,15 @@ public class UserPersistenceAdapter implements CreateUserPort, FindUserPort {
         UserEntity userEntity = userRepository.findUserEntityByEmail(email)
                 .orElseThrow(NoSuchUserIdException::new);
         return userMapper.toDomain(userEntity);
+    }
+
+    @Override
+    public Boolean ExistByUserEmail(String email) {
+        return userRepository.existsUserEntityByEmail(email);
+    }
+
+    @Override
+    public Boolean ExistByUserName(String name) {
+        return userRepository.existsUserEntityByName(name);
     }
 }

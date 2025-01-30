@@ -25,23 +25,15 @@ public class User extends BaseModel {
     }
 
 
-    public void createUser(String email, String name) {
-        if (!isUserEmailUnique(email)) {
+    public void createUser(String email, String name, Boolean isEmailExist, Boolean isNameExist) {
+        if (isEmailExist) {
             throw new UserEmailExistException();
         }
-        if (!isUserNameUnique(name)) {
+        if (isNameExist) {
             throw new UserNameExistException();
         }
         this.email = email;
         this.name = name;
-    }
-
-    public boolean isUserEmailUnique(String email) {
-        return true;
-    }
-
-    public boolean isUserNameUnique(String name) {
-        return true;
     }
 
     public void getUserDetail() {
