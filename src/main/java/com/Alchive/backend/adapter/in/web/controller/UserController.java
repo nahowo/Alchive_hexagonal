@@ -23,7 +23,7 @@ public class UserController {
     private final UserUseCase userUseCase;
 
     @Operation(summary = "회원가입", description = "회원가입 메서드입니다. ")
-    @PostMapping("/signup")
+    @PostMapping
     public ResponseEntity<ResultResponse> signUp(@RequestBody UserCreateRequestDTO userCreateRequestDTO) {
         SignUpCommand signUpCommand = SignUpCommand.of(userCreateRequestDTO);
         UserResponseDTO userResponseDTO = userUseCase.signUp(signUpCommand);
