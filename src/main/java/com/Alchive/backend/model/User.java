@@ -16,6 +16,14 @@ public class User extends BaseModel {
     private String description;
     private Boolean autoSave;
 
+    // factory method
+    public static User of(String email, String name) {
+        return User.builder()
+                .email(email)
+                .name(name)
+                .build();
+    }
+
 
     public void createUser(String email, String name) {
         if (!isUserEmailUnique(email)) {
