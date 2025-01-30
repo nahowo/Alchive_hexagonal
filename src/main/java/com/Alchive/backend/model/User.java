@@ -16,24 +16,24 @@ public class User extends BaseModel {
     private String description;
     private Boolean autoSave;
 
+    // factory method
+    public static User of(String email, String name) {
+        return User.builder()
+                .email(email)
+                .name(name)
+                .build();
+    }
 
-    public void createUser(String email, String name) {
-        if (!isUserEmailUnique(email)) {
+
+    public void createUser(String email, String name, Boolean isEmailExist, Boolean isNameExist) {
+        if (isEmailExist) {
             throw new UserEmailExistException();
         }
-        if (!isUserNameUnique(name)) {
+        if (isNameExist) {
             throw new UserNameExistException();
         }
         this.email = email;
         this.name = name;
-    }
-
-    public boolean isUserEmailUnique(String email) {
-        return true;
-    }
-
-    public boolean isUserNameUnique(String name) {
-        return true;
     }
 
     public void getUserDetail() {

@@ -1,5 +1,6 @@
 package com.Alchive.backend.adapter.out.persistence.entity;
 
+import com.Alchive.backend.model.User;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
@@ -32,4 +33,10 @@ public class UserEntity extends BaseEntity {
     @Column(name = "auto_save", nullable = false)
     @ColumnDefault("true")
     private Boolean autoSave = true;
+
+    @Builder
+    public UserEntity (String email, String name) {
+        this.email = email;
+        this.name = name;
+    }
 }
