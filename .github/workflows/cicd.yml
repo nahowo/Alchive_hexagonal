@@ -28,6 +28,12 @@ jobs:
         with:
           java-version: '17'
           distribution: 'temurin'
+      # 환경 변수 설정
+      - name: Set environment values
+        run: |
+          touch ./src/main/resources/env.properties
+          echo "${{ secrets.ENV_PROPERTIES }}" > ./src/main/resources/env.properties
+        shell: bash
       # 테스트 수행
       - name: Run Tests
         run: ./gradlew test
@@ -37,13 +43,6 @@ jobs:
         with:
           generate-brances-badge: true
           jacoco-csv-file: build/reports/jacoco/test/jacocoTestReport.csv
-
-      # 환경 변수 설정
-      - name: Set environment values
-        run: |
-          touch ./src/main/resources/env.properties
-          echo "${{ secrets.ENV_PROPERTIES }}" > ./src/main/resources/env.properties
-        shell: bash
       # Gradle build
       - name: Build with Gradle
         uses: gradle/gradle-build-action@v2
