@@ -1,4 +1,4 @@
-[![Coverage](.github/badges/jacoco.svg)](https://github.com/nahowo/Alchive_hexagonal/actions/workflows/cicd.yml)
+[![branches](.github/badges/branches.svg)](https://github.com/nahowo/Alchive_hexagonal/actions/workflows/cicd.yml)
 ### 지속 가능한 소프트웨어 설계를 위한 육각형 아키텍처
 
 테스트 코드 작성을 위해, 더 나아가서는 소프트웨어의 지속적 성장이 가능하도록 하기 위해 레이어드 아키텍처를 육각형 아키텍처로 리팩토링하는 레포지토리입니다. 레이어드 아키텍처로 작성된 레포지토리는 [여기](https://github.com/Alchive/backend)에 있습니다. 
