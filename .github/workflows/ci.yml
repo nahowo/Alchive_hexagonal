@@ -46,11 +46,13 @@ jobs:
       # JaCoCo 배지 깃허브 업로드
       - name: Upload JaCoCo Badge
         run: |
-          git config --global user.name 'github-actions'
-          git config --global user.email 'github-actions@github.com'
-          git add .github/badges/*
-          git commit -m "Update JaCoCo Badge"
-          git push origin develop
+          if [[ -n "$(git status --porcelain .github/badges)" ]]; then
+            git config --global user.name 'github-actions'
+            git config --global user.email 'github-actions@github.com'
+            git add .github/badges/*
+            git commit -m "Update JaCoCo Badge"
+            git push origin develop
+          fi
       # Gradle build
       - name: Build with Gradle
         uses: gradle/gradle-build-action@v2
