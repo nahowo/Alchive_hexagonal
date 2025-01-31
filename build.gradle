@@ -25,6 +25,7 @@ jacocoTestReport {
     reports {
         xml.required = false
         html.required = true
+        csv.required = true
     }
 }
 
