@@ -37,14 +37,12 @@ jobs:
         with:
           generate-brances-badge: true
           jacoco-csv-file: build/reports/jacoco/test/jacocoTestReport.csv
+
       # 환경 변수 설정
       - name: Set environment values
         run: |
-#          touch ./.env
-#          echo "${{ secrets.ENV }}" > ./.env
           touch ./src/main/resources/env.properties
           echo "${{ secrets.ENV_PROPERTIES }}" > ./src/main/resources/env.properties
-
         shell: bash
       # Gradle build
       - name: Build with Gradle
