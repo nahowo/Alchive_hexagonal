@@ -35,8 +35,9 @@ public class UserEntity extends BaseEntity {
     private Boolean autoSave = true;
 
     @Builder
-    public UserEntity (String email, String name) {
+    public UserEntity (String email, String name, String description) {
         this.email = email;
         this.name = name;
+        this.description = description;
     }
 }

@@ -17,4 +17,6 @@ public class UserResponseDTO {
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
     private Boolean isDeleted;
+    private String accessToken;
+    private String refreshToken;
 }

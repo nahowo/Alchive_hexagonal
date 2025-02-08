@@ -20,8 +20,8 @@ public class UserPersistenceAdapter implements CreateUserPort, FindUserPort, Exi
 
     @Override
     public User createUser(User user) {
-        // UserEntity userEntity = userMapper.toEntity(user);
-        UserEntity userEntity = new UserEntity(user.getEmail(), user.getName());
+        UserEntity userEntity = userMapper.toEntity(user);
+//        UserEntity userEntity = new UserEntity(user.getEmail(), user.getName());
         UserEntity savedUser = userRepository.save(userEntity);
         return userMapper.toDomain(savedUser);
     }

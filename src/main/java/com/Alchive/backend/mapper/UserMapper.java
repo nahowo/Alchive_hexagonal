@@ -4,17 +4,54 @@ import com.Alchive.backend.adapter.in.web.dto.response.UserResponseDTO;
 import com.Alchive.backend.adapter.out.persistence.entity.UserEntity;
 import com.Alchive.backend.application.command.SignUpCommand;
 import com.Alchive.backend.model.User;
-import org.mapstruct.Mapper;
-import org.mapstruct.ReportingPolicy;
+import org.springframework.stereotype.Component;
 
-@Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE)
-public interface UserMapper {
+@Component
+public class UserMapper {
     // 응답 도메인 -> 회원가입 응답 DTO
-    UserResponseDTO domainToResponseDTO(User user);
-    // domain -> entity
-    UserEntity toEntity(User user);
+    public UserResponseDTO domainToResponseDTO(User user, String accessToken, String refreshToken) {
+        return UserResponseDTO.builder()
+                .id(user.getId())
+                .email(user.getEmail())
+                .name(user.getName())
+                .description(user.getDescription())
+                .autoSave(user.getAutoSave())
+                .accessToken(accessToken)
+                .refreshToken(refreshToken)
+                .build();
+    }
+
+    public UserResponseDTO domainToResponseDTO(User user) {
+        return UserResponseDTO.builder()
+                .id(user.getId())
+                .email(user.getEmail())
+                .name(user.getName())
+                .description(user.getDescription())
+                .autoSave(user.getAutoSave())
+                .build();
+    }
+
     // command -> domain
-    User commandToDomain(SignUpCommand signUpCommand);
+    public User commandToDomain(SignUpCommand signUpCommand) {
+        return User.builder()
+                .email(signUpCommand.getEmail())
+                .name(signUpCommand.getName())
+                .description(signUpCommand.getDescription())
+                .build();
+    }
+
     // entity -> domain
-    User toDomain(UserEntity userEntity);
+    public User toDomain(UserEntity userEntity) {
+        return User.builder()
+                .id(userEntity.getId())
+                .email(userEntity.getEmail())
+                .name(userEntity.getName())
+                .description(userEntity.getDescription())
+                .build();
+    }
+
+    // domain -> entity
+    public UserEntity toEntity(User user) {
+        return new UserEntity(user.getEmail(), user.getName(), user.getDescription());
+    }
 }
