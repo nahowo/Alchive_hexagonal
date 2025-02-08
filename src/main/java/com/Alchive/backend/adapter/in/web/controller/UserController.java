@@ -8,12 +8,10 @@ import com.Alchive.backend.application.command.SignUpCommand;
 import com.Alchive.backend.application.port.in.UserUseCase;
 import com.Alchive.backend.config.result.ResultCode;
 import com.Alchive.backend.config.result.ResultResponse;
-import com.Alchive.backend.model.User;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 @Tag(name = "사용자", description = "사용자 관련 api입니다.")

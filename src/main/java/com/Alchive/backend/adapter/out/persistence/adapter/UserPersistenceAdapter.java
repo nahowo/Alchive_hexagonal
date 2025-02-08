@@ -54,6 +54,6 @@ public class UserPersistenceAdapter implements CreateUserPort, FindUserPort, Exi
     @Override
     public void deleteUser(User user) {
         UserEntity userEntity = userMapper.toEntity(user);
-        userRepository.deleteById(userEntity.getId());
+        userRepository.delete(userEntity);
     }
 }

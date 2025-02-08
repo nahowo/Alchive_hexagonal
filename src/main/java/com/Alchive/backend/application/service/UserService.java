@@ -29,12 +29,12 @@ public class UserService implements UserUseCase {
     @Override
     public UserResponseDTO signUp(SignUpCommand signUpCommand) {
         // 회원가입 요청 도메인 생성
-        User user = userMapper.commandToDomain(signUpCommand);
-        // 비즈니스 로직 호출
+        User user = new User();
         Boolean isEmailExist = existUserPort.ExistByUserEmail(user.getEmail());
         Boolean isNameExist = existUserPort.ExistByUserName(user.getName());
 
-        user.createUser(user.getEmail(), user.getName(), isEmailExist, isNameExist);
+        // 비즈니스 로직 호출
+        user.createUser(signUpCommand.getEmail(), signUpCommand.getName(), isEmailExist, isNameExist);
         // 회원정보 저장
         User savedUser = createUserPort.createUser(user);
 
