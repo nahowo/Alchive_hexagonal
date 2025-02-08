@@ -1,11 +1,13 @@
 package com.Alchive.backend.application.service;
 
 import com.Alchive.backend.adapter.in.web.dto.response.UserResponseDTO;
+import com.Alchive.backend.application.command.ChangeUserDetailCommand;
 import com.Alchive.backend.application.command.SignUpCommand;
 import com.Alchive.backend.application.port.in.UserUseCase;
 import com.Alchive.backend.application.port.out.user.CreateUserPort;
 import com.Alchive.backend.application.port.out.user.ExistUserPort;
 import com.Alchive.backend.application.port.out.user.FindUserPort;
+import com.Alchive.backend.application.port.out.user.UpdateUserPort;
 import com.Alchive.backend.mapper.UserMapper;
 import com.Alchive.backend.model.User;
 import lombok.RequiredArgsConstructor;
@@ -22,6 +24,7 @@ public class UserService implements UserUseCase {
     private final CreateUserPort createUserPort;
     private final FindUserPort findUserPort;
     private final ExistUserPort existUserPort;
+    private final UpdateUserPort updateUserPort;
     @Transactional
     @Override
     public UserResponseDTO signUp(SignUpCommand signUpCommand) {
@@ -38,11 +41,23 @@ public class UserService implements UserUseCase {
         User savedUser = createUserPort.createUser(user);
         log.info("엔티티 저장 완료");
         // 저장된 회원 도메인을 응답 DTO로 변환
-        return userMapper.domainToResponseDTO(user);
+        return userMapper.domainToResponseDTO(savedUser);
     }
 
     public User findByEmail(String email) {
         User user = findUserPort.findUserByEmail(email);
         return user;
+    }
+
+    @Transactional
+    @Override
+    public UserResponseDTO changeUserDetail(Long id, ChangeUserDetailCommand changeDescriptionCommand) {
+        User targetUser = findUserPort.findById(id);
+
+        targetUser.changeUserDetail(changeDescriptionCommand.getDescription(), changeDescriptionCommand.getAutoSave());
+        // JPA update
+        updateUserPort.updateUser(targetUser);
+
+        return userMapper.domainToResponseDTO(targetUser);
     }
 }

@@ -34,4 +34,18 @@ public class UserTest {
 
         Assertions.assertThrows(UserNameExistException.class, () -> sut.createUser("test@gmail.com", "test", false, true));
     }
+
+    @DisplayName("사용자 업데이트 - 성공")
+    @Test
+    public void userUpdateTestSuccess() {
+        User sut = User.builder()
+                .description("this is test user!")
+                .autoSave(true)
+                .build();
+
+        sut.changeUserDetail("hello test", false);
+
+        Assertions.assertEquals("hello test", sut.getDescription());
+        Assertions.assertEquals(false, sut.getAutoSave());
+    }
 }

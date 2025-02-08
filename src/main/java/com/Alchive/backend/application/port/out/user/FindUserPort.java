@@ -4,4 +4,5 @@ import com.Alchive.backend.model.User;
 
 public interface FindUserPort {
     User findUserByEmail(String email);
+    User findById(Long id);
 }

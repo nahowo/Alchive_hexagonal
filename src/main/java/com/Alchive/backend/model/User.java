@@ -40,8 +40,10 @@ public class User extends BaseModel {
 
     }
 
-    public void changeUserDetail() {
-
+    public void changeUserDetail(String description, Boolean autoSave) {
+        // User authentication 과정 추가
+        this.description = description;
+        this.autoSave = autoSave;
     }
 
     public void deleteUser() {

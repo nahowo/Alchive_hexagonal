@@ -38,7 +38,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             Map.entry("/api/v2/boards", List.of("GET")),
             Map.entry("/api/v2/boards/{boardId}", List.of("GET")),
             Map.entry("/api/v2/users", List.of("GET", "POST")),
-            Map.entry("/api/v2/users/{userId}", List.of("GET")),
+            Map.entry("/api/v2/users/{userId}", List.of("GET", "POST")),
             Map.entry("/api/v2/users/username/{name}", List.of("GET")),
             Map.entry("/api/v2/sns/{snsId}", List.of("GET")),
             Map.entry("/api/v2/slack/reminder", List.of("GET")),
