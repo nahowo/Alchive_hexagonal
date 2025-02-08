@@ -8,4 +8,5 @@ import com.Alchive.backend.model.User;
 public interface UserUseCase {
     UserResponseDTO signUp(SignUpCommand signUpCommand);
     UserResponseDTO changeUserDetail(Long id, ChangeUserDetailCommand changeDescriptionCommand);
+    UserResponseDTO viewUserDetail(Long id);
 }

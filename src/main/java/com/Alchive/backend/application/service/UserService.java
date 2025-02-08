@@ -65,4 +65,10 @@ public class UserService implements UserUseCase {
 
         return userMapper.domainToResponseDTO(targetUser);
     }
+
+    @Override
+    public UserResponseDTO viewUserDetail(Long id) {
+        User user = findUserPort.findById(id);
+        return userMapper.domainToResponseDTO(user);
+    }
 }

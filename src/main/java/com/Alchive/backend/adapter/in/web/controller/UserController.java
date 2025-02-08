@@ -33,9 +33,16 @@ public class UserController {
 
     @Operation(summary = "회원정보 수정", description = "회원 설명글과 자동 저장 설정을 변경하는 메서드입니다. ")
     @PostMapping("/{id}")
-    public ResponseEntity<ResultResponse> changeUser(@RequestBody UserUpdateRequestDTO userUpdateRequestDTO, @PathVariable Long id) {
+    public ResponseEntity<ResultResponse> updateUser(@RequestBody UserUpdateRequestDTO userUpdateRequestDTO, @PathVariable Long id) {
         ChangeUserDetailCommand changeUserDetailCommand = ChangeUserDetailCommand.of(userUpdateRequestDTO);
         UserResponseDTO userResponseDTO = userUseCase.changeUserDetail(id, changeUserDetailCommand);
         return ResponseEntity.ok(ResultResponse.of(ResultCode.USER_UPDATE_SUCCESS, userResponseDTO));
+    }
+
+    @Operation(summary = "회원정보 조회", description = "회원정보를 조회하는 메서드입니다. ")
+    @GetMapping("/{id}")
+    public ResponseEntity<ResultResponse> getUser(@PathVariable Long id){
+        UserResponseDTO userResponseDTO = userUseCase.viewUserDetail(id);
+        return ResponseEntity.ok(ResultResponse.of(ResultCode.USER_DETAIL_INFO_SUCCESS, userResponseDTO));
     }
 }
