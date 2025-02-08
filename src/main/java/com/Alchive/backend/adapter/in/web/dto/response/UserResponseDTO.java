@@ -17,6 +17,7 @@ public class UserResponseDTO {
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
     private Boolean isDeleted;
+    // todo: token 필드 제거하기
     private String accessToken;
     private String refreshToken;
 }

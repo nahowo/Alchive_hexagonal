@@ -9,4 +9,5 @@ public interface UserUseCase {
     UserResponseDTO signUp(SignUpCommand signUpCommand);
     UserResponseDTO changeUserDetail(Long id, ChangeUserDetailCommand changeDescriptionCommand);
     UserResponseDTO viewUserDetail(Long id);
+    void deleteUser(Long id);
 }

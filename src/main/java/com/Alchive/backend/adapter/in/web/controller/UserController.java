@@ -45,4 +45,11 @@ public class UserController {
         UserResponseDTO userResponseDTO = userUseCase.viewUserDetail(id);
         return ResponseEntity.ok(ResultResponse.of(ResultCode.USER_DETAIL_INFO_SUCCESS, userResponseDTO));
     }
+
+    @Operation(summary = "회원 삭제", description = "회원을 삭제하는 메서드입니다. ")
+    @DeleteMapping("/{id}")
+    public ResponseEntity<ResultResponse> deleteUser(@PathVariable Long id) {
+        userUseCase.deleteUser(id);
+        return ResponseEntity.ok(ResultResponse.of(ResultCode.USER_DELETE_SUCCESS));
+    }
 }

@@ -27,7 +27,10 @@ public class UserMapper {
                 .email(user.getEmail())
                 .name(user.getName())
                 .description(user.getDescription())
+                .createdAt(user.getCreatedAt())
+                .updatedAt(user.getUpdatedAt())
                 .autoSave(user.getAutoSave())
+                .isDeleted(user.getIsDeleted())
                 .build();
     }
 
@@ -47,11 +50,18 @@ public class UserMapper {
                 .email(userEntity.getEmail())
                 .name(userEntity.getName())
                 .description(userEntity.getDescription())
+                .createdAt(userEntity.getCreatedAt())
+                .updatedAt(userEntity.getUpdatedAt())
+                .autoSave(userEntity.getAutoSave())
                 .build();
     }
 
     // domain -> entity
     public UserEntity toEntity(User user) {
-        return new UserEntity(user.getEmail(), user.getName(), user.getDescription());
+        return UserEntity.builder()
+                .email(user.getEmail())
+                .name(user.getName())
+                .description(user.getDescription())
+                .build();
     }
 }

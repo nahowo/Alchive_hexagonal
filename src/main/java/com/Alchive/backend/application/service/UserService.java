@@ -4,12 +4,9 @@ import com.Alchive.backend.adapter.in.web.dto.response.UserResponseDTO;
 import com.Alchive.backend.application.command.ChangeUserDetailCommand;
 import com.Alchive.backend.application.command.SignUpCommand;
 import com.Alchive.backend.application.port.in.UserUseCase;
-import com.Alchive.backend.application.port.out.user.CreateUserPort;
-import com.Alchive.backend.application.port.out.user.ExistUserPort;
-import com.Alchive.backend.application.port.out.user.FindUserPort;
-import com.Alchive.backend.application.port.out.user.UpdateUserPort;
+import com.Alchive.backend.application.port.out.user.*;
 import com.Alchive.backend.config.jwt.JwtTokenProvider;
-import com.Alchive.backend.mapper.UserMapper;
+import com.Alchive.backend.mapper.IUserMapper;
 import com.Alchive.backend.model.User;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -19,15 +16,15 @@ import org.springframework.transaction.annotation.Transactional;
 @Slf4j
 @RequiredArgsConstructor
 @Service
-@Transactional(readOnly = true)
 public class UserService implements UserUseCase {
-    private final UserMapper userMapper;
+    private final IUserMapper userMapper;
     private  final JwtTokenProvider jwtTokenProvider;
 
     private final CreateUserPort createUserPort;
     private final FindUserPort findUserPort;
     private final ExistUserPort existUserPort;
     private final UpdateUserPort updateUserPort;
+    private final DeleteUserPort deleteUserPort;
     @Transactional
     @Override
     public UserResponseDTO signUp(SignUpCommand signUpCommand) {
@@ -46,7 +43,9 @@ public class UserService implements UserUseCase {
         String refreshToken = jwtTokenProvider.createRefreshToken(user.getEmail());
 
         // 저장된 회원 도메인을 응답 DTO로 변환
-        return userMapper.domainToResponseDTO(savedUser, accessToken, refreshToken);
+        log.info("access Token: ", accessToken);
+        log.info("refresh Token: ", refreshToken);
+        return userMapper.domainToResponseDTO(savedUser);
     }
 
     public User findByEmail(String email) {
@@ -70,5 +69,12 @@ public class UserService implements UserUseCase {
     public UserResponseDTO viewUserDetail(Long id) {
         User user = findUserPort.findById(id);
         return userMapper.domainToResponseDTO(user);
+    }
+
+    @Transactional
+    @Override
+    public void deleteUser(Long id) {
+        User user = findUserPort.findById(id);
+        deleteUserPort.deleteUser(user);
     }
 }
