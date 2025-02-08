@@ -3,14 +3,15 @@ package com.Alchive.backend.adapter.out.persistence.entity;
 import com.Alchive.backend.model.User;
 import jakarta.persistence.*;
 import lombok.*;
+import lombok.experimental.SuperBuilder;
 import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
 
-@Builder
-@AllArgsConstructor(access = AccessLevel.PRIVATE)
-@NoArgsConstructor
+@SuperBuilder
 @Getter
+@NoArgsConstructor
+@AllArgsConstructor(access = AccessLevel.PRIVATE)
 @Entity
 @SQLDelete(sql = "UPDATE user SET is_deleted = true WHERE id = ?")
 @Where(clause = "is_deleted = false")
@@ -31,12 +32,6 @@ public class UserEntity extends BaseEntity {
     private String description;
 
     @Column(name = "auto_save", nullable = false)
-    @ColumnDefault("true")
+    @Builder.Default
     private Boolean autoSave = true;
-
-    @Builder
-    public UserEntity (String email, String name) {
-        this.email = email;
-        this.name = name;
-    }
 }

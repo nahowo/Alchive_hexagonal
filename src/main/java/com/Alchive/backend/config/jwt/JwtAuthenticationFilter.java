@@ -42,7 +42,8 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             Map.entry("/api/v2/users/username/{name}", List.of("GET")),
             Map.entry("/api/v2/sns/{snsId}", List.of("GET")),
             Map.entry("/api/v2/slack/reminder", List.of("GET")),
-            Map.entry("/api/v2/slack/added", List.of("GET"))
+            Map.entry("/api/v2/slack/added", List.of("GET")),
+            Map.entry("/api/v2/jwt", List.of("GET"))
     );
 
     // EXCLUDE_URL과 메서드에 일치할 경우 현재 필터를 진행하지 않고 다음 필터 진행

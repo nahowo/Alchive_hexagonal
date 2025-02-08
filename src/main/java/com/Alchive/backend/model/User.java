@@ -4,8 +4,9 @@ import com.Alchive.backend.adapter.in.web.dto.request.UserCreateRequestDTO;
 import com.Alchive.backend.config.error.exception.user.UserEmailExistException;
 import com.Alchive.backend.config.error.exception.user.UserNameExistException;
 import lombok.*;
+import lombok.experimental.SuperBuilder;
 
-@Builder
+@SuperBuilder
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
@@ -15,15 +16,6 @@ public class User extends BaseModel {
     private String name;
     private String description;
     private Boolean autoSave;
-
-    // factory method
-    public static User of(String email, String name) {
-        return User.builder()
-                .email(email)
-                .name(name)
-                .build();
-    }
-
 
     public void createUser(String email, String name, Boolean isEmailExist, Boolean isNameExist) {
         if (isEmailExist) {
@@ -36,15 +28,9 @@ public class User extends BaseModel {
         this.name = name;
     }
 
-    public void getUserDetail() {
-
-    }
-
-    public void changeUserDetail() {
-
-    }
-
-    public void deleteUser() {
-
+    public void changeUserDetail(String description, Boolean autoSave) {
+        // User authentication 과정 추가
+        this.description = description;
+        this.autoSave = autoSave;
     }
 }
