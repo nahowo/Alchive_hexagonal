@@ -1,5 +1,3 @@
-zsh:1: command not found: wq
-
 #
 # Copyright © 2015-2021 the original authors.
 #
